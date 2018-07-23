@@ -24,7 +24,7 @@ public class MultiplicationMatrix {
             System.out.println();
 
             if(i == 1) {
-                for(int k = 1; k <= columnWidth * column + 1; k++) {
+                for(int k = 0; k < columnWidth * column + 1; k++) {
                     System.out.print("-");
                 }
                 System.out.println();
