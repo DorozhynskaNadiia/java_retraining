@@ -1,4 +1,4 @@
-package happy_tickets;
+package happy_tickets; //рефактор по окремих невеликих методах; винести в окремий клас роботу зх числами, створити об'єкт цього класу і викликати методи
 
 import java.util.Scanner;
 
@@ -11,7 +11,6 @@ public class DynamicHappyTickets {
 
         for (int i = 0; i < ticketsCount; i++) {
             String result = RandomStringUtils.random(ticketSize, false, true);
-
             byte[] n = new byte[ticketSize];
             for (int j = 0; j < n.length; j++) {
                 n[j] = (byte) result.charAt(j);
@@ -51,7 +50,6 @@ public class DynamicHappyTickets {
                 countAll = countAll + 1;
             }
             while (System.nanoTime() < endPoint);
-//          while (System.nanoTime() - start < (long) 1_000_000_000 * duration);
             System.out.println(countAll + " are all generated tickets");
             System.out.println(countHappy + " are happy tickets");
         } else {
