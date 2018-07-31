@@ -1,31 +1,42 @@
-package happy_tickets; //рефактор по окремих невеликих методах; винести в окремий клас роботу зх числами, створити об'єкт цього класу і викликати методи
+package happy_tickets; //рефактор по окремих невеликих методах; винести в окремий клас роботу з числами, створити об'єкт цього класу і викликати методи
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class DynamicHappyTickets {
 
+    private static byte[] convertToByteArray(String str) {
+        byte[] n = new byte[str.length()];
+        for (int j = 0; j < n.length; j++) {
+            n[j] = (byte) str.charAt(j);
+        }
+        return n;
+    }
+
+    private static boolean isHappyTicket(byte[] n) {
+        int firstHalf = 0;
+        int secondHalf = 0;
+        for (int k = 0; k < n.length; k++) {
+            if (k < n.length / 2) {
+                firstHalf = firstHalf + n[k];
+            } else {
+                secondHalf = secondHalf + n[k];
+            }
+        }
+        return firstHalf == secondHalf;
+    }
+
     private static int generateHappyTickets(int ticketsCount, int ticketSize) {
         int happyTicketsCount = 0;
 
         for (int i = 0; i < ticketsCount; i++) {
             String result = RandomStringUtils.random(ticketSize, false, true);
-            byte[] n = new byte[ticketSize];
-            for (int j = 0; j < n.length; j++) {
-                n[j] = (byte) result.charAt(j);
-            }
 
-            int firstHalf = 0;
-            int secondHalf = 0;
-            for (int k = 0; k < n.length; k++) {
-                if (k < ticketSize / 2) {
-                    firstHalf = firstHalf + n[k];
-                } else {
-                    secondHalf = secondHalf + n[k];
-                }
-            }
-            if (firstHalf == secondHalf) {
+            byte[] n = convertToByteArray(result);
+
+            if (isHappyTicket(n)) {
                 happyTicketsCount = happyTicketsCount + 1;
                 System.out.println(result + ": is happy");
             } else {
@@ -46,7 +57,9 @@ public class DynamicHappyTickets {
         int ticketSize = scan.nextInt();
         if(ticketSize % 2 == 0) {
             do {
-                countHappy = countHappy + generateHappyTickets(1, ticketSize); //список хепі тікетів занести в арей ліст і вкінці вивести всі які починаються на 0 (for-stream)
+                countHappy = countHappy + generateHappyTickets(1, ticketSize); //список хепі тікетів занести в арей ліст і вкінці вивести всі які починаються на 0
+                ArrayList <String> happyTikets  = new ArrayList<>();
+
                 countAll = countAll + 1;
             }
             while (System.nanoTime() < endPoint);
