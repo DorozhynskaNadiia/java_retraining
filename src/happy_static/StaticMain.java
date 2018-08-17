@@ -17,7 +17,6 @@ public class StaticMain {
 
         do {
             String random = RandomStringUtils.random(ticketSize, false, true);
-            //генеруємо лише квитки які не починаються з 0 (якщо генерує, то згенерувати ще раз)
             if(random.startsWith("0")) {
                continue;
             }
